@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jamxk/%20common/assets.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:jamxk/home/bloc/home_bloc.dart';
 
 class AppBottonBar extends StatelessWidget {
-  const AppBottonBar({super.key});
+  final int currentIndex;
+  const AppBottonBar({
+    super.key,
+    required this.currentIndex,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -12,6 +18,7 @@ class AppBottonBar extends StatelessWidget {
       child: ClipRRect(
         borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
         child: BottomNavigationBar(
+          currentIndex: currentIndex,
           backgroundColor: Colors.white,
           selectedItemColor: coral,
           unselectedItemColor: Colors.grey,
@@ -19,30 +26,57 @@ class AppBottonBar extends StatelessWidget {
           type: BottomNavigationBarType.fixed,
           items: [
             BottomNavigationBarItem(
-              icon: Padding(
-                padding: const EdgeInsets.only(top: 8.0),
-                child: SvgPicture.asset(carbon),
-              ),
+              icon: IconButton(
+                  onPressed: () {
+                    context.read<HomeBloc>().add(
+                          IndexChangedEvent(selectedIndex: 0),
+                        );
+                  },
+                  icon: Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: SvgPicture.asset(carbon),
+                  )),
               label: 'My Carbon',
             ),
             BottomNavigationBarItem(
-              icon: Padding(
-                padding: const EdgeInsets.only(top: 8.0),
-                child: SvgPicture.asset(paymentsIcon),
+              icon: IconButton(
+                onPressed: () {
+                  context.read<HomeBloc>().add(
+                        IndexChangedEvent(selectedIndex: 1),
+                      );
+                },
+                icon: Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: SvgPicture.asset(addIcon),
+                ),
               ),
-              label: 'Add',
+              label: 'Add Carbon',
             ),
             BottomNavigationBarItem(
-              icon: Padding(
-                padding: const EdgeInsets.only(top: 8.0),
-                child: SvgPicture.asset(transfersIcon),
+              icon: IconButton(
+                onPressed: () {
+                  context.read<HomeBloc>().add(
+                        IndexChangedEvent(selectedIndex: 2),
+                      );
+                },
+                icon: Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: SvgPicture.asset(transfersIcon),
+                ),
               ),
               label: 'Other',
             ),
             BottomNavigationBarItem(
-              icon: Padding(
-                padding: const EdgeInsets.only(top: 8.0),
-                child: SvgPicture.asset(profileIcon),
+              icon: IconButton(
+                onPressed: () {
+                  context.read<HomeBloc>().add(
+                        IndexChangedEvent(selectedIndex: 3),
+                      );
+                },
+                icon: Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: SvgPicture.asset(profileIcon),
+                ),
               ),
               label: 'Profile',
             ),

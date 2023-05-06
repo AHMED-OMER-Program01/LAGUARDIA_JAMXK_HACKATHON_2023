@@ -20,6 +20,7 @@ const loaderIcon = 'assets/icons/loader.svg';
 const unlockIcon = 'assets/icons/unlock.svg';
 const mooneyInIcon = 'assets/icons/money_in.svg';
 const mooneyOutIcon = 'assets/icons/money_out.svg';
+const addIcon = 'assets/icons/add.svg';
 
 // colors
 const whiteBg = Color.fromRGBO(240, 242, 244, .9);
