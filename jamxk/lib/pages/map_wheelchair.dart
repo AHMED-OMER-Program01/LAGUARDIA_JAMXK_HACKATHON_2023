@@ -34,8 +34,6 @@ class _WheelchairMapState extends State<WheelchairMap> {
     controller.setMapStyle(mapStyle);
   }
 
-
-
   @override
   void initState() {
     super.initState();
@@ -47,8 +45,9 @@ class _WheelchairMapState extends State<WheelchairMap> {
 
   void addCustomIcon() async {
     markerIcon = await BitmapDescriptor.fromAssetImage(
-    ImageConfiguration(),
-    "assets/images/bike.png",);
+      ImageConfiguration(),
+      "assets/images/bike.png",
+    );
 
     BitmapDescriptor.fromAssetImage(const ImageConfiguration(), wheelchairPNG)
         .then(
@@ -107,13 +106,29 @@ class _WheelchairMapState extends State<WheelchairMap> {
               alignment: Alignment.topRight,
               child: Column(children: <Widget>[
                 FloatingActionButton(
+                    child: Icon(Icons.balance),
+                    elevation: 5,
+                    backgroundColor: buttonColor,
+                    onPressed: () {
+                      _changeMapType(1);
+                      print('Changing the Map Type');
+                    }),
+                FloatingActionButton(
                     child: Icon(Icons.layers),
                     elevation: 5,
                     backgroundColor: buttonColor,
                     onPressed: () {
-                      _changeMapType();
+                      _changeMapType(2);
                       print('Changing the Map Type');
                     }),
+                FloatingActionButton(
+                    child: Icon(Icons.layers),
+                    elevation: 5,
+                    backgroundColor: buttonColor,
+                    onPressed: () {
+                      _changeMapType(3);
+                      print('Changing the Map Type');
+                    })
               ]),
             ),
           ]),
@@ -121,14 +136,23 @@ class _WheelchairMapState extends State<WheelchairMap> {
         onWillPop: _onWillPop);
   }
 
-  Future _changeMapType() async {
-      final controller = await mapController.future;
-      controller.setMapStyle(monochromeStyle);
+  Future _changeMapType(int value) async {
+    final controller = await mapController.future;
+    switch (value) {
+      case 1:
+        controller.setMapStyle(monochromeStyle);
+        break;
+      case 2:
+        controller.setMapStyle(tritanopiaStyle);
+        break;
+      case 3:
+        controller.setMapStyle(deuteranopiaStyle);
+        break;
+      default:
+    }
   }
 
-  void _moveMap() {
-    
-  }
+  void _moveMap() {}
 
   Future<bool> _onWillPop() async {
     return (await showDialog(
