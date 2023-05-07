@@ -21,9 +21,13 @@ const unlockIcon = 'assets/icons/unlock.svg';
 const mooneyInIcon = 'assets/icons/money_in.svg';
 const mooneyOutIcon = 'assets/icons/money_out.svg';
 const addIcon = 'assets/icons/add.svg';
+const wheelchair = 'assests/icons/wheelchair.svg';
 
 // colors
 const whiteBg = Color.fromRGBO(240, 242, 244, .9);
 const purple = Color(0xFF432148);
 const deepBlue = Color(0xFF213048);
 const coral = Color.fromRGBO(235, 87, 87, 1);
+const buttonColor = Color(0xff004263);
+
+const googleURL = 'maps.googleapis.com';

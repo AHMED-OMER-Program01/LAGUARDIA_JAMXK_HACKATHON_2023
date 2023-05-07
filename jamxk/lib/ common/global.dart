@@ -1,0 +1,2 @@
+double? latitude;
+double? longitude;
