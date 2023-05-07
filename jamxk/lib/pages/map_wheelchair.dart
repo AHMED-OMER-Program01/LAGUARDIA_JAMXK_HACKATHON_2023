@@ -165,7 +165,7 @@ class _WheelchairMapState extends State<WheelchairMap> {
       'type': type,
       'key': googleMapsAPI
     });
-    var responseS = await http.get(urlAccess);
+    final responseS = await http.get(urlAccess);
 
     if (responseS.statusCode == 200) {
       var jsonResponse = json.decode(utf8.decode(responseS.bodyBytes));

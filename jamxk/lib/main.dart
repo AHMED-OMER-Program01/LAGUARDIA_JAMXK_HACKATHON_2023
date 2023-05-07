@@ -4,6 +4,7 @@ import 'package:jamxk/home/bloc/home_bloc.dart';
 import 'package:jamxk/home/home.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
