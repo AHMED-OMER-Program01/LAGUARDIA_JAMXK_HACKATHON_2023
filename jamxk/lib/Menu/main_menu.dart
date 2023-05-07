@@ -34,9 +34,9 @@ class AppBottonBar extends StatelessWidget {
                   },
                   icon: Padding(
                     padding: const EdgeInsets.only(top: 8.0),
-                    child: SvgPicture.asset(carbon),
+                    child: SvgPicture.asset(faceIdImage),
                   )),
-              label: 'My Carbon',
+              label: 'Places',
             ),
             BottomNavigationBarItem(
               icon: IconButton(
@@ -50,7 +50,7 @@ class AppBottonBar extends StatelessWidget {
                   child: SvgPicture.asset(addIcon),
                 ),
               ),
-              label: 'Add Carbon',
+              label: 'Near me',
             ),
             BottomNavigationBarItem(
               icon: IconButton(

@@ -106,7 +106,21 @@ class _WheelchairMapState extends State<WheelchairMap> {
               alignment: Alignment.topRight,
               child: Column(children: <Widget>[
                 FloatingActionButton(
-                    child: Icon(Icons.balance),
+                    child: ImageIcon(
+                      AssetImage(round_normal),
+                      size: 40,
+                    ),
+                    elevation: 5,
+                    backgroundColor: buttonColor,
+                    onPressed: () {
+                      _changeMapType(0);
+                      print('Changing the Map Type');
+                    }),
+                FloatingActionButton(
+                    child: ImageIcon(
+                      AssetImage(round_normal),
+                      size: 40,
+                    ),
                     elevation: 5,
                     backgroundColor: buttonColor,
                     onPressed: () {
@@ -114,7 +128,10 @@ class _WheelchairMapState extends State<WheelchairMap> {
                       print('Changing the Map Type');
                     }),
                 FloatingActionButton(
-                    child: Icon(Icons.layers),
+                    child: ImageIcon(
+                      AssetImage(round_normal),
+                      size: 40,
+                    ),
                     elevation: 5,
                     backgroundColor: buttonColor,
                     onPressed: () {
@@ -122,7 +139,10 @@ class _WheelchairMapState extends State<WheelchairMap> {
                       print('Changing the Map Type');
                     }),
                 FloatingActionButton(
-                    child: Icon(Icons.layers),
+                    child: ImageIcon(
+                      AssetImage(round_deu),
+                      size: 40,
+                    ),
                     elevation: 5,
                     backgroundColor: buttonColor,
                     onPressed: () {
@@ -139,14 +159,21 @@ class _WheelchairMapState extends State<WheelchairMap> {
   Future _changeMapType(int value) async {
     final controller = await mapController.future;
     switch (value) {
+      case 0:
+        controller.setMapStyle(mapStyle);
+        SnackBar(content: Text('Normal'));
+        break;
       case 1:
         controller.setMapStyle(monochromeStyle);
+        SnackBar(content: Text('Monochrome'));
         break;
       case 2:
         controller.setMapStyle(tritanopiaStyle);
+        SnackBar(content: Text('Tritanopia'));
         break;
       case 3:
         controller.setMapStyle(deuteranopiaStyle);
+        SnackBar(content: Text('Deuteranopia'));
         break;
       default:
     }

@@ -4,7 +4,11 @@ import 'dart:ui';
 const circleNode = 'assets/images/circle.png';
 const bigCircleNode = 'assets/images/big_circle.png';
 const usaFlag = 'assets/images/usa_flag.png';
-const wheelchairPNG = 'assets/images/wheechair.png'; 
+const wheelchairPNG = 'assets/images/wheechair.png';
+const round_normal = 'assets/images/round1.png';
+const round_deu = 'assets/images/round2.png';
+const round_mon = 'assets/images/round3.png';
+const round_tri = 'assets/images/round4.png';
 
 // icons
 const faceIdImage = 'assets/icons/face_id.svg';
@@ -23,6 +27,8 @@ const mooneyInIcon = 'assets/icons/money_in.svg';
 const mooneyOutIcon = 'assets/icons/money_out.svg';
 const addIcon = 'assets/icons/add.svg';
 const wheelchair = 'assests/icons/wheelchair.svg';
+const map = 'assests/icons/map.svg';
+const mapc = 'assests/icons/map1.svg';
 
 // colors
 const whiteBg = Color.fromRGBO(240, 242, 244, .9);
