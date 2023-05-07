@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -18,7 +19,8 @@ class WheelchairMap extends StatefulWidget {
 }
 
 class _WheelchairMapState extends State<WheelchairMap> {
-  GoogleMapController? mapController;
+  final Completer<GoogleMapController> mapController = Completer();
+  //GoogleMapController? mapController;
   static LatLng? _initialPosition;
   Iterable markers = [];
   List<dynamic> add = [];
@@ -28,9 +30,11 @@ class _WheelchairMapState extends State<WheelchairMap> {
   BitmapDescriptor markerIcon = BitmapDescriptor.defaultMarker;
 
   void _onMapCreated(GoogleMapController controller) {
-    mapController = controller;
-    mapController?.setMapStyle(mapStyle);
+    mapController.complete(controller);
+    controller.setMapStyle(mapStyle);
   }
+
+
 
   @override
   void initState() {
@@ -117,12 +121,13 @@ class _WheelchairMapState extends State<WheelchairMap> {
         onWillPop: _onWillPop);
   }
 
-  void _changeMapType() {
-    setState(() {
-      _defaultMapType = _defaultMapType == MapType.normal
-          ? MapType.satellite
-          : MapType.normal;
-    });
+  Future _changeMapType() async {
+      final controller = await mapController.future;
+      controller.setMapStyle(monochromeStyle);
+  }
+
+  void _moveMap() {
+    
   }
 
   Future<bool> _onWillPop() async {
