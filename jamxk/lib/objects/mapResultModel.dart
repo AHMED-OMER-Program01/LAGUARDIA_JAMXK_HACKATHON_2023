@@ -1,10 +1,10 @@
-class googleResul {
+class googleResult {
   List<Null>? _htmlAttributions;
   String? _nextPageToken;
   late final List<Results> _results;
   String? _status;
 
-  googleResul(
+  googleResult(
       {List<Null>? htmlAttributions,
       String? nextPageToken,
       List<Results>? results,
@@ -33,7 +33,7 @@ class googleResul {
   String? get status => _status;
   set status(String? status) => _status = status;
 
-  googleResul.fromJson(Map<String, dynamic> json) {
+  googleResult.fromJson(Map<String, dynamic> json) {
     if (json['html_attributions'] != null) {
       _htmlAttributions = <Null>[];
     }
@@ -213,7 +213,7 @@ class Results {
         ? new PlusCode.fromJson(json['plus_code'])
         : null;
     _priceLevel = json['price_level'];
-    _rating = json['rating'];
+    _rating = double.parse(json['rating'].toString());
     _reference = json['reference'];
     _scope = json['scope'];
     _types = json['types'].cast<String>();

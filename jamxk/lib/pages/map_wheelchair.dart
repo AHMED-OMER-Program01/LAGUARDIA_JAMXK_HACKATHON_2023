@@ -24,8 +24,8 @@ class _WheelchairMapState extends State<WheelchairMap> {
   List<dynamic> add = [];
   MapType _defaultMapType = MapType.normal;
   List<Marker> lstMarkers = [];
-  final gresult = googleResul();
   var loading = false;
+  BitmapDescriptor markerIcon = BitmapDescriptor.defaultMarker;
 
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
@@ -35,12 +35,44 @@ class _WheelchairMapState extends State<WheelchairMap> {
   @override
   void initState() {
     super.initState();
+    addCustomIcon();
     GoogleMapsQuery(1500, 'restaurant');
     _initialPosition = LatLng(latitude!, longitude!);
-    setState(() {
-      loading = true;
-    });
+    markers = _markers;
   }
+
+  void addCustomIcon() async {
+    markerIcon = await BitmapDescriptor.fromAssetImage(
+    ImageConfiguration(),
+    "assets/images/bike.png",);
+
+    BitmapDescriptor.fromAssetImage(const ImageConfiguration(), wheelchairPNG)
+        .then(
+      (icon) {
+        setState(() {
+          markerIcon = icon;
+        });
+      },
+    );
+  }
+
+  Iterable _markers = Iterable.generate(gresult[0].results.length, (index) {
+    return Marker(
+      markerId: MarkerId(gresult[0].results[index].placeId.toString()),
+      position: LatLng(
+        gresult[0].results[index].geometry!.location!.lat!,
+        gresult[0].results[index].geometry!.location!.lng!,
+      ),
+      infoWindow: InfoWindow(
+        title: gresult[0].results[index].name,
+        snippet: gresult[0].results[index].openingHours!.openNow! == true
+            ? "It's open"
+            : "It's closed",
+        onTap: () {},
+      ),
+    );
+    // }
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -170,27 +202,7 @@ class _WheelchairMapState extends State<WheelchairMap> {
     if (responseS.statusCode == 200) {
       var jsonResponse = json.decode(utf8.decode(responseS.bodyBytes));
 
-      var gr = googleResul.fromJson(jsonResponse);
-
-      Iterable _markers = Iterable.generate(gr.results.length, (index) {
-        return Marker(
-          markerId: MarkerId('jobs'),
-          position: LatLng(
-            gr.results[index].geometry!.location!.lat!,
-            gr.results[index].geometry!.location!.lng!,
-          ),
-          infoWindow: InfoWindow(
-            title: gr.results[index].name,
-            snippet: gr.results[index].openingHours!.openNow! == true
-                ? "It's open"
-                : "It's closed",
-            onTap: () {},
-          ),
-        );
-        // }
-      });
-
-      markers = _markers;
+      gresult.add(googleResult.fromJson(jsonResponse));
     }
 
     // else {

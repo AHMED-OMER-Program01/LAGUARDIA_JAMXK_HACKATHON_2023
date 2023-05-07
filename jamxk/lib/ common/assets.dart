@@ -4,6 +4,7 @@ import 'dart:ui';
 const circleNode = 'assets/images/circle.png';
 const bigCircleNode = 'assets/images/big_circle.png';
 const usaFlag = 'assets/images/usa_flag.png';
+const wheelchairPNG = 'assets/images/wheechair.png'; 
 
 // icons
 const faceIdImage = 'assets/icons/face_id.svg';

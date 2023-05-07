@@ -1,16 +1,21 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:jamxk/%20common/assets.dart';
 import 'package:jamxk/%20common/global.dart';
+import 'package:jamxk/%20common/keys.dart';
 import 'package:jamxk/%20common/magic_numbers.dart';
 import 'package:jamxk/Menu/main_menu.dart';
 import 'package:jamxk/home/bloc/home_bloc.dart';
+import 'package:jamxk/objects/mapResultModel.dart';
 import 'package:jamxk/pages/carbon_input.dart';
 import 'package:jamxk/pages/chart.dart';
 import 'package:jamxk/pages/map_wheelchair.dart';
 import 'package:jamxk/pages/profile.dart';
+import 'package:http/http.dart' as http;
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -101,7 +106,39 @@ class _HomePageState extends State<HomePage> {
     }
     // _initialPosition = LatLng(latitude!, longitude!);
 
-    // GoogleMapsQuery(1500, 'restaurant');
+    GoogleMapsQuery(1500, 'restaurant');
+  }
+
+  void GoogleMapsQuery(var radius, var type) async {
+    var keyword = 'wheelchair accessible';
+    var location = latitude.toString() + ',' + longitude.toString();
+
+    var urlAccess = Uri.https(googleURL, '/maps/api/place/nearbysearch/json', {
+      'keyword': keyword,
+      'location': location,
+      'radius': radius.toString(),
+      'type': type,
+      'key': googleMapsAPI
+    });
+    final responseS = await http.get(urlAccess);
+
+    if (responseS.statusCode == 200) {
+      var jsonResponse = json.decode(utf8.decode(responseS.bodyBytes));
+
+      gresult.add(googleResult.fromJson(jsonResponse));
+    }
+
+    // else {
+    // Fluttertoast.showToast(
+    //     msg: S.of(context).errorLogin,
+    //     toastLength: Toast.LENGTH_SHORT,
+    //     gravity: ToastGravity.CENTER,
+    //     backgroundColor: color_botones.withOpacity(0.5),
+    //     textColor: Colors.white);
+    // setState(() {
+    //   controller.stop();
+    // });
+    // }
   }
 }
 
